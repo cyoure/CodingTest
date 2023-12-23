@@ -1,50 +1,25 @@
 function solution(n, lost, reserve) {
-    lost = lost.sort((a,b) =>{
-     return a-b; 
-  });
-    reserve = reserve.sort((a,b) =>{
-     return a-b; 
-  });
-  let same = lost.filter((data) => reserve.includes(data));
-  let total = n - lost.length;
-  if (same.length === 0) {
-    for (let i = 0; i < lost.length; i++) {
-      for (let j = 0; j < reserve.length; j++) {
-        if (lost[i] - reserve[j] === 1 || lost[i] - reserve[j] === -1) {
-          total += 1;
-          lost.splice(i, 1, -1);
-          reserve.splice(j, 1, -1);
-        }
-      }
+    const students = {};
+    let answer = 0;
+    for(let i = 1; i <= n; i++){
+        students[i] = 1;
     }
-  } else {
-    total += same.length;
-    for (let i = 0; i < same.length; i++) {
-      for (let j = 0; j < lost.length; j++) {
-        if (same[i] === lost[j]) {
-          lost.splice(j, 1, -1);
+    lost.forEach(number => students[number] -= 1);
+    reserve.forEach(number => students[number] += 1);
+
+    for(let i = 1; i <= n; i++){
+        if(students[i] === 2 && students[i-1] === 0){
+                students[i-1]++;
+                students[i]--;
+        } else if(students[i] === 2 && students[i+1] === 0){
+                students[i+1]++;
+                students[i]--;
         }
-      }
     }
-    for (let i = 0; i < same.length; i++) {
-      for (let j = 0; j < reserve.length; j++) {
-        if (same[i] === reserve[j]) {
-          reserve.splice(j, 1, -1);
+    for(let key in students){
+        if(students[key] >= 1){
+            answer++;
         }
-      }
     }
-    for (let i = 0; i < lost.length; i++) {
-      for (let j = 0; j < reserve.length; j++) {
-        if (lost[i] - reserve[j] === 1 || lost[i] - reserve[j] === -1) {
-          total += 1;
-          lost.splice(i, 1, -1);
-          reserve.splice(j, 1, -1);
-        }
-      }
-    }
-  }
-  return total;
+    return answer;
 }
-// lost / reserve 요소 같은 게 있는지 -> 여벌 체육복 해당 같은 요소 친구가 입어야함
-// 겹치는 경우가 있는 경우 없는 경우
-// 그외 reserve 요소 앞 뒤 숫자에 lost가 있는지
