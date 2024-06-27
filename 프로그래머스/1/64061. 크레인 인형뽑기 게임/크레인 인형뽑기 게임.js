@@ -21,7 +21,6 @@ function solution(board, moves) {
       }
     }
   }
-  console.log(pick);
   for(let i=0; i<pick.length; i++){
     if(pick[i] === pick[i+1]){
         answer += 2;
