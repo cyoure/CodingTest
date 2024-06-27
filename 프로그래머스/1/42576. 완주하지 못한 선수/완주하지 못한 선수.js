@@ -1,19 +1,15 @@
 function solution(participant, completion) {
-    let set = {};
+  let answer = "";
+  //completion[completion.length] = "zzzzzzzzzz";
 
-    for(let person of completion){
-        if(!set[person]){
-            set[person] = 1;
-        }else{
-            set[person] = set[person] + 1;
-        }
-    }
+  participant.sort();
+  completion.sort();
 
-    for(let person of participant){
-        if(!set[person] || set[person] === 0){
-            return person;
-        }else{
-            set[person] = set[person] - 1;
-        }
+  for (let i = 0; i < participant.length; i++) {
+    if (participant[i] !== completion[i]) {
+      answer = participant[i];
+      break;
     }
+  }
+  return answer;
 }
