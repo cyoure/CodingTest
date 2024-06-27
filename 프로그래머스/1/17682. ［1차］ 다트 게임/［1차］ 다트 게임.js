@@ -12,7 +12,6 @@
 function solution(dartResult) {
   let answer = 0;
   let total = [];
-  console.log(total);
   for (let i = 0; i < dartResult.length; i++) {
     if (dartResult[i] === "S") {
       if(dartResult[i-2] === "1" && dartResult[i-1]==="0") {
@@ -69,7 +68,6 @@ function solution(dartResult) {
       }
     }
   }
-  console.log(total);
   answer = total[0] + total[1] + total[2];
   return answer;
 }
