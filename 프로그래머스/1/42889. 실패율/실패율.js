@@ -32,15 +32,14 @@ function solution(N, stages) {
   for (let j = 0; j < failRate.length; j++) {
     for (let i = 0; i < failRate.length; i++) {
       big = Math.max(...failRate);
-      if (big === -2) {
+      if (big === -1) {
         break;
       }
       if (failRate[i] === big) {
         answer.push(i + 1);
-        failRate.splice(i, 1, -2);
+        failRate.splice(i, 1, -1);
         break;
       }
     }
   }return answer;
 }
-solution(4, [3,3,3]);
